@@ -51,7 +51,6 @@ const AuthForm:React.FC<AuthFormProps> = () => {
             ...data,
             redirect:false
           }).then((callback)=>{
-            console.log(callback)
             if(callback?.error){
               toast.error("Invalid Credentials")
             }
@@ -66,7 +65,18 @@ const AuthForm:React.FC<AuthFormProps> = () => {
   const socialAction = (action:string)=>{
     setIsLoading(true)
 
-    //NextAuth Social sign in
+    signIn(action,{
+      redirect:false
+    }).then((callback)=>{
+      if(callback?.error){
+        toast.error("Invalid Credentials")
+      }
+
+      if(callback?.ok || !callback?.error){
+        toast.success("Logged in!")
+      }
+    }
+    ).finally(()=>setIsLoading(false))
   }
   return (
       <div className='mt-8 sm:mx-auto sm:w-full sm:max-w-md'>
