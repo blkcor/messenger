@@ -51,11 +51,12 @@ const AuthForm:React.FC<AuthFormProps> = () => {
             ...data,
             redirect:false
           }).then((callback)=>{
+            console.log(callback)
             if(callback?.error){
               toast.error("Invalid Credentials")
             }
 
-            if(callback?.ok || !callback?.error){
+            if(!callback?.error && callback?.ok){
               toast.success("Logged in!")
             }
           }).finally(()=>setIsLoading(false))
@@ -72,7 +73,7 @@ const AuthForm:React.FC<AuthFormProps> = () => {
         toast.error("Invalid Credentials")
       }
 
-      if(callback?.ok || !callback?.error){
+      if( !callback?.error && callback?.ok ){
         toast.success("Logged in!")
       }
     }
