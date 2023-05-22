@@ -2,7 +2,7 @@
 import React from 'react';
 import { IconType } from 'react-icons';
 import clsx from 'clsx';
-import Link from 'next/Link'
+import Link from 'next/link';
 
 type DesktopItemProps = {
   href:string;
@@ -26,8 +26,8 @@ const DesktopItem:React.FC<DesktopItemProps> = ({
   }
 
   return(
-    <li onClick={handleClick}>
       <Link 
+        onClick={handleClick}
         href={href}
         className={clsx(`
           group
@@ -48,7 +48,6 @@ const DesktopItem:React.FC<DesktopItemProps> = ({
         <Icon className='h-6 w-6 shrink-0'/>
         <span className='sr-only'>{label}</span>
       </Link>
-    </li>
   )
 }
 export default DesktopItem;
