@@ -8,7 +8,7 @@ const EmptyState = () => {
         <h3
           className="mt-2 text-2xl font-semibold text-gray-900"
         >
-            Select a char or a new conversation
+            Select a chat or a new conversation
         </h3>
       </div>
     </div>
