@@ -19,7 +19,6 @@ const MobileFooter = () => {
               key={route.label}
               href={route.href}
               icon={route.icon}
-              label={route.label}
               active={route.active}
               onClick={route.onClick}
             />

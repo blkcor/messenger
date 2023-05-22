@@ -7,7 +7,6 @@ import Link from 'next/link';
 type MobileItemProps = {
   href:string;
   icon:IconType;
-  label:string;
   active?:boolean;
   onClick?:()=>void
 };
@@ -15,7 +14,6 @@ type MobileItemProps = {
 const MobileItem:React.FC<MobileItemProps> = ({
   href,
   icon:Icon,
-  label,
   active,
   onClick
 }) => {
