@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import Sidebar from '../components/sidebar/Sidebar';
 import getUsers from '../actions/getUsers';
 import UserList from './components/UserList';
