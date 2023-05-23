@@ -9,14 +9,14 @@ import { signOut } from "next-auth/react"
 const useRoutes = ()=>{
   const pathname = usePathname();
   const {conversationId,isOpen} = useConversation();
-
+  
   const routes = useMemo(()=>{
     return [
       {
         label:"Chat",
         href:"/conversations",
         icon:HiChat,
-        active:pathname === "/conversations" && !conversationId
+        active:pathname === "/conversations" || conversationId
       },
       {
         label:"Users",
