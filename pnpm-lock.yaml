@@ -40,6 +40,9 @@ dependencies:
   next-auth:
     specifier: ^4.22.1
     version: 4.22.1(next@13.4.2)(react-dom@18.2.0)(react@18.2.0)
+  next-cloudinary:
+    specifier: ^4.11.0
+    version: 4.11.0(next@13.4.2)(react@18.2.0)
   postcss:
     specifier: 8.4.23
     version: 8.4.23
@@ -85,6 +88,29 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: 0.13.11
+    dev: false
+
+  /@cloudinary-util/url-loader@3.8.0:
+    resolution: {integrity: sha512-OvwoWb3D9zf4op3tNg71DIuvEdGx32pj2X74chaRiWPJjJs1llSX8PBz4SKXV1GCXD/1yEft97/pB8vTQhIWpQ==}
+    dependencies:
+      '@cloudinary-util/util': 2.0.1
+      '@cloudinary/url-gen': 1.10.1
+    dev: false
+
+  /@cloudinary-util/util@2.0.1:
+    resolution: {integrity: sha512-d2imgUjYTLjv8ZhZPMAts/uPbMvIE71X4I/5hwdY/7vM4BuFQoJMSyq+h2pW1z1MyGG9BOWBm70vp082lSrbEQ==}
+    dev: false
+
+  /@cloudinary/transformation-builder-sdk@1.2.8:
+    resolution: {integrity: sha512-Rxvt/tjzTNzHDvH2l5ZLky/ahp60pHf51uLfzkFA/Mrh6Uj8aMHne0TRbYvpaH4t8l9wLGcdK6SbBqKVzlN16A==}
+    dependencies:
+      '@cloudinary/url-gen': 1.10.1
+    dev: false
+
+  /@cloudinary/url-gen@1.10.1:
+    resolution: {integrity: sha512-6pBmapnL7G231NbNWhKbi+08HcpNASci7M3OmZWaUCQWUfdmo3au27HT3Zqg9NMsisfyer3t7o0RXzPQ4XlmMg==}
+    dependencies:
+      '@cloudinary/transformation-builder-sdk': 1.2.8
     dev: false
 
   /@jridgewell/gen-mapping@0.3.3:
@@ -919,6 +945,19 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       uuid: 8.3.2
+    dev: false
+
+  /next-cloudinary@4.11.0(next@13.4.2)(react@18.2.0):
+    resolution: {integrity: sha512-avHWTLAUglie4TG74f39HgUO9RwV+TOw6lY5RamejC6L8QY+BGfUP4qw7XFnVImkNTGmLiKMsanFB0MesI34eg==}
+    peerDependencies:
+      next: ^12 || ^13
+      react: ^17 || ^18
+    dependencies:
+      '@cloudinary-util/url-loader': 3.8.0
+      '@cloudinary-util/util': 2.0.1
+      '@cloudinary/url-gen': 1.10.1
+      next: 13.4.2(react-dom@18.2.0)(react@18.2.0)
+      react: 18.2.0
     dev: false
 
   /next@13.4.2(react-dom@18.2.0)(react@18.2.0):
