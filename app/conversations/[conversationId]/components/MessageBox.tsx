@@ -4,23 +4,24 @@ import { FullMessage } from '@/app/types';
 import clsx from 'clsx';
 import { format } from 'date-fns';
 import { useSession } from 'next-auth/react';
-import Image from 'next/image';
-import React from 'react';
+import React, { useState } from 'react';
+import ImageModal from './ImageModal';
 
 type MessageBoxProps = {
-  isLast?:boolean
-  data:FullMessage
+  isLast?: boolean
+  data: FullMessage
 
 };
 
-const MessageBox:React.FC<MessageBoxProps> = ({
+const MessageBox: React.FC<MessageBoxProps> = ({
   isLast,
   data
 }) => {
   const session = useSession()
+  const [imageModalOpen, setImageModalOpen] = useState(false)
 
   const isOwn = session?.data?.user?.email === data?.sender?.email
-  const seenList = (data.seen || []).filter((user)=>user?.email !== data.sender?.email).map((user)=>user.name).join(", ")
+  const seenList = (data.seen || []).filter((user) => user?.email !== data.sender?.email).map((user) => user.name).join(", ")
 
   const container = clsx(
     "flex gap-3 p-4",
@@ -29,7 +30,7 @@ const MessageBox:React.FC<MessageBoxProps> = ({
 
   const avatar = clsx(
     isOwn && "order-2"
-)
+  )
   const body = clsx(
     "flex flex-col gap-2",
     isOwn && "items-end"
@@ -37,10 +38,10 @@ const MessageBox:React.FC<MessageBoxProps> = ({
   const message = clsx(
     "text-sm w-fit overflow-hidden",
     isOwn ? "bg-sky-500 text-white" : "bg-gray-100",
-    data.image ? "rounded-md p-0" : "rounded-full py-2 px-3"  
+    data.image ? "rounded-md p-0" : "rounded-full py-2 px-3"
   )
 
-  return(
+  return (
     <div className={container}>
       <div className={avatar}>
         <Avatar user={data.sender} />
@@ -55,10 +56,16 @@ const MessageBox:React.FC<MessageBoxProps> = ({
           </div>
         </div>
         <div className={message}>
+          <ImageModal
+            src={data.image as string}
+            isOpen={imageModalOpen}
+            onClose={() => setImageModalOpen(false)}
+          />
           {data.image ? (
-            <img 
-              alt='Image' 
-              src={data.image}               
+            <img
+              onClick={() => setImageModalOpen(true)}
+              alt='Image'
+              src={data.image}
               className='
                 w-60
                 h-60
@@ -66,14 +73,14 @@ const MessageBox:React.FC<MessageBoxProps> = ({
                 cursor-pointer 
                 hover:scale-110 
                 transition 
-                translate' 
-              />
+                translate'
+            />
           )
-          :(
-            <div className='white space-pre-wrap'>
-              {data.body}
-            </div>
-          )}
+            : (
+              <div className='white space-pre-wrap'>
+                {data.body}
+              </div>
+            )}
         </div>
         {isLast && isOwn && seenList.length > 0 && (
           <div className='text-xs font-light text-gray-500'>
