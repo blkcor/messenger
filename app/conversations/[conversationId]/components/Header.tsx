@@ -7,45 +7,47 @@ import React, { useMemo, useState } from 'react';
 import { HiChevronLeft } from 'react-icons/hi';
 import { HiEllipsisHorizontal } from 'react-icons/hi2';
 import ProfileDrawer from './ProfileDrawer';
-import { set } from 'date-fns';
 import AvatarGroup from '@/app/components/AvatarGroup';
+import useActiveList from '@/app/hooks/useActiveList';
 
 type HeaderProps = {
-  conversation:Conversation & {
-      users:User[]
-    }
+  conversation: Conversation & {
+    users: User[]
+  }
 };
 
-const Header:React.FC<HeaderProps> = ({conversation}) => {
+const Header: React.FC<HeaderProps> = ({ conversation }) => {
   const otherUser = useOtherUser(conversation);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const { members } = useActiveList()
 
-  const statusText = useMemo(()=>{
-    if(conversation.isGroup){
+  const isActive = members.indexOf(otherUser?.email!) !== -1
+  const statusText = useMemo(() => {
+    if (conversation.isGroup) {
       return `${conversation.users.length} members`
     }
-    return 'Active'
-  },[conversation])
+    return isActive ? "Active" : "Offline"
+  }, [conversation, isActive])
 
   return (
     <>
       <ProfileDrawer
         data={conversation}
         isOpen={drawerOpen}
-        onClose={()=>setDrawerOpen(false)}
+        onClose={() => setDrawerOpen(false)}
       />
       <div className='bg-white w-full flex border-b-[1px] sm:px-4 py-3 px-4 lg:px-6 justify-between items-center shadow-sm'>
         <div className='flex gap-3 items-center'>
           <Link
             className='lg:hidden block text-sky-500 hover:text-sky-600 transition cursor-pointer'
             href='/conversations'>
-              <HiChevronLeft  size={32}/>
+            <HiChevronLeft size={32} />
           </Link>
           {
             conversation.isGroup ? (
-              <AvatarGroup users={conversation.users}/>
+              <AvatarGroup users={conversation.users} />
             ) : (
-              <Avatar user={otherUser}/>
+              <Avatar user={otherUser} />
             )
           }
           <div className='flex flex-col'>
@@ -59,7 +61,7 @@ const Header:React.FC<HeaderProps> = ({conversation}) => {
         </div>
         <HiEllipsisHorizontal
           size={32}
-          onClick={()=>setDrawerOpen(true)}
+          onClick={() => setDrawerOpen(true)}
           className='text-sky-500 cursor-pointer hover:text-sky-600 transition'
         />
       </div>
