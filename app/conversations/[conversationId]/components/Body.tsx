@@ -35,7 +35,6 @@ const Body: React.FC<BodyProps> = ({ initialMessages }) => {
         }
         return [...current, message]
       })
-      //TODO:different
       bottomRef?.current?.scrollIntoView({ behavior: 'smooth' })
     }
 
